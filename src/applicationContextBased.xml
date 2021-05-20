@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--配置目标对象-->
+    <bean id="basedUsersService" class="com.bjsxt.schema_based.service.impl.BasedUsersServiceImpl"/>
+
+    <!--配置切面对象-->
+    <bean id="basedMyAspect" class="com.bjsxt.schema_based.aop.BasedMyAspect"/>
+    <!--配置切面对象-->
+    <bean id="basedMyAspect2"  class="com.bjsxt.schema_based.aop.BasedMyAspect2"/>
+
+    <!--配置切面-->
+    <aop:config>
+        <!--配置切点-->
+        <aop:pointcut id="basedMyPointcut" expression="execution(* com.bjsxt.schema_based.service.*.*(..))"/>
+        <!--配置切面-->
+        <aop:advisor id="my1" advice-ref="basedMyAspect" pointcut-ref="basedMyPointcut" order="1"/>
+        <aop:advisor id="my2" advice-ref="basedMyAspect2" pointcut-ref="basedMyPointcut" order="2"/>
+    </aop:config>
+</beans>
